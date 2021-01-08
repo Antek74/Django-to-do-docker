@@ -88,28 +88,38 @@ ADD . /code/
 - *add all code to working dir*  
 
 CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ]  
-- * run server once container starts*  
+- *run server once container starts*  
 
 ## Docker build syntax explanation
 
-"-t" defines name of the image  
-"." defines working dir where to search for Dockerfile  
+"-t"  
+- *defines name of the image* 
+
+"."  
+- *defines working dir where to search for Dockerfile*  
 
 ## Docker run syntax explanation
 
-"-d" - detach, run it in the background  
-"--mount" - instruct container to bind external file (sqlite db) so it can persists across container restarts  
-"-p" instructions for iptables so it can route the traffic from host to container  
+"-d"  
+- *detach, run it in the background*  
+
+"--mount"  
+- *instruct container to bind external file (sqlite db) so it can persists across container restarts*
+  
+"-p" 
+- *instructions for iptables so it can route the traffic from host to container ($host_port:$container_port)*
     
+	
     ```bash
-	sudo iptables -t nat -L DOCKER -n
+	$ sudo iptables -t nat -L DOCKER -n
 	>Chain DOCKER (2 references)
 	>target     prot opt source               destination         
 	>RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 	>DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 to:172.17.0.2:8000
     ```
 
-"-t" define a name of the container  
+"-t"  
+- *define a name of the container*  
 
 ## Start from scratch if something goes wrong :)
 
