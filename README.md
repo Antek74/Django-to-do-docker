@@ -121,11 +121,12 @@ CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ]
 "-t"  
 - *define a name of the container*  
 
-## Start from scratch if something goes wrong :)
+Start from scratch if something goes wrong:
 
     ```bash
 	$ sudo docker stop $(sudo docker ps -q)
 	$ yes | sudo docker system prune -a
     ```
+
 
 Built with ♥ by [`Omkar Pathak`](http://www.omkarpathak.in/), dockerised by Ante K.
