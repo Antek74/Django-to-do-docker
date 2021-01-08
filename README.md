@@ -14,31 +14,51 @@ This is a sample project that a novice django developer can use to get started.
 - Simple UI
 - Blazing fast
 
-## Setup
+## Run the app
+
+- Make sure you have installed Docker daemon
 
 - Download the files from this repo
+
+    ```bash
+	git clone https://github.com/Antek74/Django-to-do-docker
+    ```
+
 - Change the directory to the folder where you downloaded files
-- For installing required packages, execute the following command in terminal:
 
     ```bash
-    $pip install -r requirements.txt
-    ```
+	cd Django-to-do-docker
+    ```bash
 
-- After successful installation execute the following commands:
+- Copy sqlite db to be externally hosted as volume (so it survives container restarts)
 
     ```bash
-    $python manage.py migrate
-    $python manage.py runserver
+	cp ~/db-zadatak1.sqlite3 .
     ```
 
-- Visit `127.0.0.1:8000` in your browser to enjoy the awesome app!
+- Build a Docker image
 
-Built with ♥ by [`Omkar Pathak`](http://www.omkarpathak.in/)
+    ```bash
+	sudo docker build -t django-to-do-docker .
+    ```
 
-# Donation
+- Run the image
 
-If you have found my softwares to be of any use to you, do consider helping me pay my internet bills. This would encourage me to create many such softwares :)
+    ```bash
+	sudo docker run -d \
+	-it \
+	--name django-to-do-docker \
+	--mount type=bind,source="$(pwd)"/db-zadatak1.sqlite3,target=/code/todo/db.sqlite3 \
+	-p 8000:8000 \
+	-t django-to-do-docker:latest
+    ```
 
-| PayPal | <a href="https://paypal.me/omkarpathak27" target="_blank"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" alt="Donate via PayPal!" title="Donate via PayPal!" /></a> |
-|:-------------------------------------------:|:-------------------------------------------------------------:|
-| ₹ (INR)  | <a href="https://www.instamojo.com/@omkarpathak/" target="_blank"><img src="https://www.soldermall.com/images/pic-online-payment.jpg" alt="Donate via Instamojo" title="Donate via instamojo" /></a> |
+- After successful installation execute the following commands to check if container is running well:
+
+    ```bash
+	
+    ```
+
+- Visit `$IP:8000` in your browser where $IP is IP address of the Docker host!
+
+Built with ♥ by [`Omkar Pathak`](http://www.omkarpathak.in/), dockerised by Ante K.
