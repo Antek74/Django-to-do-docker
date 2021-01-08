@@ -45,8 +45,8 @@ This is a sample project that a novice django developer can use to get started.
 - Run the image
 
     ```bash
-	$ sudo docker run -d \
-	-it \
+	$ sudo docker run \
+	-d \
 	--name django-to-do-docker \
 	--mount type=bind,source="$(pwd)"/db-zadatak1.sqlite3,target=/code/todo/db.sqlite3 \
 	-p 8000:8000 \
@@ -66,14 +66,14 @@ This is a sample project that a novice django developer can use to get started.
 
 ## Dockerfile explanation
 
-FROM python:3.7 # app is built with Django 2.0.8, so max version of python is 3.7
-ENV PYTHONUNBUFFERED 1 # force python to flush data to stdout instantly, prevents buffering
-RUN mkdir /code # mkdir the root dir
-WORKDIR /code # define working dir
-COPY requirements.txt /code/ # copy requirements to working dir
-RUN pip --no-cache-dir install -r requirements.txt # install python deps once
-ADD . /code/ # add all code to working dir
-CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ] # run server once container starts
+FROM python:3.7 *# app is built with Django 2.0.8, so max version of python is 3.7*  
+ENV PYTHONUNBUFFERED 1 *# force python to flush data to stdout instantly, prevents buffering*  
+RUN mkdir /code *# mkdir the root dir*  
+WORKDIR /code *# define working dir*  
+COPY requirements.txt /code/ *# copy requirements to working dir*  
+RUN pip --no-cache-dir install -r requirements.txt *# install python deps once*  
+ADD . /code/ *# add all code to working dir*  
+CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ] *# run server once container starts*  
 
 ## Docker build syntax explanation
 
@@ -81,9 +81,9 @@ CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ] # run serv
 
 ## Docker run syntax explanation
 
-"-it"
-"--mount" - instruct container to bind external file (sqlite db) so it can persists across container restarts
-"-p" instructions for iptables so it can route the traffic from host to container
+"-d" - detach, run it in the background  
+"--mount" - instruct container to bind external file (sqlite db) so it can persists across container restarts  
+"-p" instructions for iptables so it can route the traffic from host to container  
     
     ```bash
 	sudo iptables -t nat -L DOCKER -n
@@ -93,11 +93,14 @@ CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ] # run serv
 	>DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 to:172.17.0.2:8000
     ```
 
+"-t" define a name of the container  
+
 ## Start from scratch if something goes wrong :)
 
     ```bash
 	$ sudo docker stop $(sudo docker ps -q)
 	$ yes | sudo docker system prune -a
     ```
+
 
 Built with ♥ by [`Omkar Pathak`](http://www.omkarpathak.in/), dockerised by Ante K.
