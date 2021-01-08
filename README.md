@@ -128,5 +128,4 @@ CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ]
 	$ yes | sudo docker system prune -a
     ```
 
-
 Built with ♥ by [`Omkar Pathak`](http://www.omkarpathak.in/), dockerised by Ante K.
