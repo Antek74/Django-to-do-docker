@@ -68,18 +68,25 @@ This is a sample project that a novice django developer can use to get started.
 
 FROM python:3.7  
 - *app is built with Django 2.0.8, so max version of python is 3.7*  
+
 ENV PYTHONUNBUFFERED 1  
 - *force python to flush data to stdout instantly, prevents buffering*  
+
 RUN mkdir /code  
 - *mkdir the root dir*  
+
 WORKDIR /code  
 - *define working dir*  
+
 COPY requirements.txt /code/  
 - *copy requirements to working dir*  
+
 RUN pip --no-cache-dir install -r requirements.txt  
 - *install python deps once*  
+
 ADD . /code/ 
 - *add all code to working dir*  
+
 CMD [ "python", "/code/todo/manage.py", "runserver", "0.0.0.0:8000" ]  
 - * run server once container starts*  
 
