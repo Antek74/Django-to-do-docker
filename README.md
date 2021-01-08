@@ -21,31 +21,31 @@ This is a sample project that a novice django developer can use to get started.
 - Download the files from this repo
 
     ```bash
-	git clone https://github.com/Antek74/Django-to-do-docker
+	$ git clone https://github.com/Antek74/Django-to-do-docker
     ```
 
 - Change the directory to the folder where you downloaded files
 
     ```bash
-	cd Django-to-do-docker
-    ```bash
+	$ cd Django-to-do-docker
+    ```
 
 - Copy sqlite db to be externally hosted as volume (so it survives container restarts)
 
     ```bash
-	cp ~/db-zadatak1.sqlite3 .
+	$ cp ~/db-zadatak1.sqlite3 .
     ```
 
 - Build a Docker image
 
     ```bash
-	sudo docker build -t django-to-do-docker .
+	$ sudo docker build -t django-to-do-docker .
     ```
 
 - Run the image
 
     ```bash
-	sudo docker run -d \
+	$ sudo docker run -d \
 	-it \
 	--name django-to-do-docker \
 	--mount type=bind,source="$(pwd)"/db-zadatak1.sqlite3,target=/code/todo/db.sqlite3 \
@@ -56,9 +56,12 @@ This is a sample project that a novice django developer can use to get started.
 - After successful installation execute the following commands to check if container is running well:
 
     ```bash
-	
+	$ sudo docker ps
+	>CONTAINER ID   IMAGE                        COMMAND                  CREATED         STATUS         PORTS                    NAMES
+	>9a93c40b7de7   django-to-do-docker:latest   "python /code/todo/m…"   8 minutes ago   Up 8 minutes   0.0.0.0:8000->8000/tcp   django-to-do-docker
     ```
 
-- Visit `$IP:8000` in your browser where $IP is IP address of the Docker host!
+
+- Visit `$IP:8000` in your browser where $IP is IP address of the Docker host.
 
 Built with ♥ by [`Omkar Pathak`](http://www.omkarpathak.in/), dockerised by Ante K.
